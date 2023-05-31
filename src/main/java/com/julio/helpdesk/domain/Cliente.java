@@ -3,35 +3,32 @@ package com.julio.helpdesk.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+
+import com.julio.helpdesk.domain.enums.Perfil;
+
 import lombok.Data;
 
-
+@Entity
+@Data
 public class Cliente extends Pessoa {
 	
-	private List<Chamado> chamados = new ArrayList<>();
+	private static final long serialVersionUID = 1L;
 	
+	@OneToMany(mappedBy = "cliente")
+	private List<Chamado> chamados = new ArrayList<>();
 	
 	public Cliente() {
 		super();
+		addPerfis(Perfil.CLIENTE);
 		// TODO Auto-generated constructor stub
 	}
 
 	public Cliente(Integer id, String nome, String cpf, String email, String senha) {
 		super(id, nome, cpf, email, senha);
+		addPerfis(Perfil.CLIENTE);
 		// TODO Auto-generated constructor stub
-	}
-
-	public void abrirChamado() {
-		Chamado chamado = new Chamado();
-		this.chamados.add(chamado);
-	}
-
-	public List<Chamado> getChamados() {
-		return chamados;
-	}
-
-	public void setChamados(List<Chamado> chamados) {
-		this.chamados = chamados;
 	}
 
 }

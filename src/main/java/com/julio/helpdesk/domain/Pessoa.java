@@ -11,6 +11,8 @@ import javax.persistence.Id;
 
 import com.julio.helpdesk.domain.enums.Perfil;
 
+import lombok.Data;
+
 @Entity
 public abstract class Pessoa {
 	
@@ -25,6 +27,7 @@ public abstract class Pessoa {
 	
 	public Pessoa() {
 		super();
+		addPerfis(Perfil.CLIENTE); // Opcional: todo usuário será necessariamente um cliente.
 	}
 
 	public Pessoa(Integer id, String nome, String cpf, String email, String senha) {
@@ -77,11 +80,11 @@ public abstract class Pessoa {
 	}
 
 	public Set<Perfil> getPerfis() {
-		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet()); // Mapeando a lista de perfis a partir do código.
 	}
 
 	public void addPerfis(Perfil perfil) {
-		this.perfis.add(perfil.getCodigo());
+		this.perfis.add(perfil.getCodigo()); // adicionando um perfil a partir do código do tipo de perfil.
 		
 	}
 

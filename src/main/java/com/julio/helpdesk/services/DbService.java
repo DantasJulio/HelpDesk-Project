@@ -19,13 +19,13 @@ import com.julio.helpdesk.repositories.TecnicoRepository;
 public class DbService {
 	
 	@Autowired
-	ChamadoRepository chamadoRepository;
+	private ChamadoRepository chamadoRepository;
 	
 	@Autowired
-	TecnicoRepository tecnicoRepository;
+	private TecnicoRepository tecnicoRepository;
 	
 	@Autowired
-	ClienteRepository clienteRepository;
+	private ClienteRepository clienteRepository;
 	
 	public void instanciaDB() {
 		

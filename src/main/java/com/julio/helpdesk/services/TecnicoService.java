@@ -1,5 +1,6 @@
 package com.julio.helpdesk.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,15 @@ import com.julio.helpdesk.services.exception.ObjectNotFoundException;
 public class TecnicoService {
 	
 	@Autowired 
-	private TecnicoRepository tecnicoRepository;
+	private TecnicoRepository repository;
 	
 	public Tecnico findById (Integer id) {
-		Optional<Tecnico> tecnico = tecnicoRepository.findById(id);
+		Optional<Tecnico> tecnico = repository.findById(id);
 		return tecnico.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id)) ;
+	}
+
+	public List<Tecnico> findAll() {
+		return repository.findAll();
 	}
 
 }

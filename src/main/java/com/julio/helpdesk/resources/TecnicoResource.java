@@ -1,5 +1,8 @@
 package com.julio.helpdesk.resources;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,19 +14,28 @@ import com.julio.helpdesk.domain.Tecnico;
 import com.julio.helpdesk.domain.dto.TecnicoDTO;
 import com.julio.helpdesk.services.TecnicoService;
 
+
+
 @RestController
 @RequestMapping(value = "/tecnicos")
 public class TecnicoResource {
 	
 	@Autowired
-	private TecnicoService tecnicoService;
+	private TecnicoService service;
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id) {
 		
-		Tecnico obj = this.tecnicoService.findById(id);
+		Tecnico obj = this.service.findById(id);
 		return ResponseEntity.ok().body(new TecnicoDTO(obj));
 		
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<TecnicoDTO>> findAll () {
+		List<Tecnico> list = service.findAll();
+		List<TecnicoDTO> listDTO = list.stream().map(obj -> new TecnicoDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 	}
 
 }

@@ -28,6 +28,4 @@ public class DevConfig {
 		return false;	
 	}
 	
-	
-
 }

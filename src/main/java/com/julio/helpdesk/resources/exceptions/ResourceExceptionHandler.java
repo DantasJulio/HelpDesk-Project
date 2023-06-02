@@ -16,8 +16,12 @@ public class ResourceExceptionHandler { // controlador de exceptions para o paco
 	public ResponseEntity<StandardError> objectNotFoundException (ObjectNotFoundException ex, 
 			HttpServletRequest request) {
 		
-		StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.NOT_FOUND.value(),
-				"Object Not Found", ex.getMessage(), request.getRequestURI());
+		StandardError error = new StandardError(
+				System.currentTimeMillis(),
+				HttpStatus.NOT_FOUND.value(),
+				"Object Not Found",
+				ex.getMessage(), 
+				request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 	}
 

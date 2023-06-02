@@ -32,6 +32,10 @@ public class TecnicoService {
 		return repository.save(newObj);
 	}
 
+	private void validaPorCPFeEmail(TecnicoDTO objDTO) {
+		
+	}
+
 
 
 }

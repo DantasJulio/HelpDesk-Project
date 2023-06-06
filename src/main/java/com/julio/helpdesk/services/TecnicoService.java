@@ -3,6 +3,8 @@ package com.julio.helpdesk.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +53,14 @@ public class TecnicoService {
 			throw new DataIntegrityViolationException("E-mail já cadastrado para o usuário com Id: " 
 														+  obj.get().getId() + ", Nome: " + obj.get().getNome());		
 		}
+	}
+
+	public Tecnico update(Integer id, @Valid TecnicoDTO objDTO) {
+		objDTO.setId(id); //setando o id direto da url para evitar que o usuário passe outro id no corpo da requisição.
+		Tecnico oldObj = findById(id);
+		validaPorCPFeEmail(objDTO);
+		oldObj = new Tecnico(objDTO);
+		return repository.save(oldObj);
 	}
 
 

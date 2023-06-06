@@ -47,4 +47,8 @@ public class Tecnico extends Pessoa {
 		this.dataCriacao = obj.getDataCriacao();
 	}
 
+	public List<Chamado> getChamados() {
+		return chamados;
+	}
+
 }

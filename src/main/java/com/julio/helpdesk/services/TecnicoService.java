@@ -41,6 +41,22 @@ public class TecnicoService {
 		return repository.save(newObj);
 	}
 
+	public Tecnico update(Integer id, @Valid TecnicoDTO objDTO) {
+		objDTO.setId(id); //setando o id direto da url para evitar que o usuário passe outro id no corpo da requisição.
+		Tecnico oldObj = findById(id);
+		validaPorCPFeEmail(objDTO);
+		oldObj = new Tecnico(objDTO);
+		return repository.save(oldObj);
+	}
+	
+	public void delete(Integer id) {
+		Tecnico obj = findById(id);
+		if(obj.getChamados().size() > 0) {
+			throw new DataIntegrityViolationException("Técnico possui ordens de serviço e não pode ser deletado!");
+		} 
+			repository.deleteById(id);		
+	}
+	
 	private void validaPorCPFeEmail(TecnicoDTO objDTO) {
 		Optional<Pessoa> obj = pessoaRepository.findByCpf(objDTO.getCpf());
 		if(obj.isPresent() && obj.get().getId() != objDTO.getId()) {
@@ -54,15 +70,4 @@ public class TecnicoService {
 														+  obj.get().getId() + ", Nome: " + obj.get().getNome());		
 		}
 	}
-
-	public Tecnico update(Integer id, @Valid TecnicoDTO objDTO) {
-		objDTO.setId(id); //setando o id direto da url para evitar que o usuário passe outro id no corpo da requisição.
-		Tecnico oldObj = findById(id);
-		validaPorCPFeEmail(objDTO);
-		oldObj = new Tecnico(objDTO);
-		return repository.save(oldObj);
-	}
-
-
-
 }

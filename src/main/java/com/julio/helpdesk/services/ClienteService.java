@@ -42,7 +42,7 @@ public class ClienteService {
 	}
 
 	public Cliente update(Integer id, @Valid ClienteDTO objDTO) {
-		objDTO.setId(id); //setando o id direto da url para evitar que o usuário passe outro id no corpo da requisição.
+		objDTO.setId(id);
 		Cliente oldObj = findById(id);
 		validaPorCPFeEmail(objDTO);
 		oldObj = new Cliente(objDTO);
